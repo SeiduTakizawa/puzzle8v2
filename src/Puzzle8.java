@@ -8,23 +8,23 @@ public class Puzzle8 {
         this.initialState = initialState;
     }
 
-    public void solve(int algoChoice) {
+    public void solve(int choice) {
         List<Node> solution = null;
-        if (algoChoice == 1) {
+        if (choice == 1) {
             UCS ucs = new UCS(goalState);
             solution = ucs.solve(initialState);
-            System.out.println("Nodes explored (UCS): " + ucs.getNodesExplored());
-        } else if (algoChoice == 2) {
+            System.out.println("Nodes explored (UCS): " + ucs.getExploredNodes());
+        } else if (choice == 2) {
             AStar aStar = new AStar(goalState);
             solution = aStar.solve(initialState);
-            System.out.println("Nodes explored (A*): " + aStar.getNodesExplored());
+            System.out.println("Nodes explored (A*): " + aStar.getExploredNodes());
         } else {
             System.out.println("Invalid choice.");
             System.exit(1);
         }
 
         if (solution != null) {
-            for (Node node : solution) {
+            for (Node node : solution) {  //Print the solution path
                 printState(node.state);
                 System.out.println("Move: " + (node.move == null ? "Start" : node.move));
                 System.out.println("Cost: " + node.cost);
@@ -45,11 +45,11 @@ public class Puzzle8 {
 
     public static void main(String[] args) {
         int[][] initialStates = {
-                {1, 2, 3, 4, 5, 6, 0, 7, 8},
-                {1, 2, 3, 4, 5, 6, 7, 0, 8},
-                {1, 2, 3, 4, 5, 0, 6, 7, 8},
-                {1, 2, 3, 4, 0, 5, 6, 7, 8},
-                {0, 1, 2, 3, 4, 5, 6, 7, 8}
+                {1,3,4,8,6,2,7,0,5}, //easy
+                {7,6,5,8,3,4,1,0,2}, //medium
+                {8,4,6,3,1,5,2,0,7}, //hard
+                {2,8,1,0,4,3,7,6,5}, //tryhard
+                {7,6,5,8,3,4,1,0,2}  //expert
         };
 
         Scanner scanner = new Scanner(System.in);
@@ -64,10 +64,10 @@ public class Puzzle8 {
         int[] initialState = initialStates[choice - 1];
 
         System.out.println("Choose the algorithm (1 for UCS, 2 for A*):");
-        int algoChoice = scanner.nextInt();
+        int choice1 = scanner.nextInt();
 
         Puzzle8 puzzle = new Puzzle8(initialState);
-        puzzle.solve(algoChoice);
+        puzzle.solve(choice1);
 
         scanner.close();
     }

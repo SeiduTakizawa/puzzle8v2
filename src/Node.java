@@ -15,6 +15,12 @@ public class Node implements Comparable<Node> {
 
     @Override
     public int compareTo(Node other) {
-        return Integer.compare(this.totalCost , other.totalCost);
+        if (this.totalCost < other.totalCost) {
+            return -1; // less than other
+        } else if (this.totalCost > other.totalCost) {
+            return 1;  // greater than other
+        } else {
+            return 0;   // equal
+        }
     }
 }
