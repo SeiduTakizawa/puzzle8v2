@@ -3,7 +3,7 @@ import java.util.*;
 public class Puzzle8 {
     private final int[] initialState;
     private final int[] goalState = {6, 5, 4, 7, 0, 3, 8, 1, 2};
-
+    private int nodesExplored = 0;
     public Puzzle8(int[] initialState) {
         this.initialState = initialState;
     }
@@ -13,11 +13,11 @@ public class Puzzle8 {
         if (choice == 1) {
             UCS ucs = new UCS(goalState);
             solution = ucs.solve(initialState);
-            System.out.println("Nodes explored (UCS): " + ucs.getExploredNodes());
+            nodesExplored = ucs.getExploredNodes();
         } else if (choice == 2) {
             AStar aStar = new AStar(goalState);
             solution = aStar.solve(initialState);
-            System.out.println("Nodes explored (A*): " + aStar.getExploredNodes());
+            nodesExplored = aStar.getExploredNodes();
         } else {
             System.out.println("Invalid choice.");
             System.exit(1);
@@ -37,19 +37,27 @@ public class Puzzle8 {
 
     private static void printState(int[] state) {
         for (int i = 0; i < state.length; i++) {
-            if (i % 3 == 0) System.out.println();
-            System.out.print((state[i] == 0 ? " " : state[i]) + " ");
+            if (i % 3 == 0 && i != 0) {
+                System.out.println();
+            }
+            if (state[i] == 0) {
+                System.out.print("  ");
+            } else {
+                System.out.print(state[i] + " ");
+            }
         }
         System.out.println();
     }
 
+
     public static void main(String[] args) {
         int[][] initialStates = {
-                {1,3,4,8,6,2,7,0,5}, //easy
-                {7,6,5,8,3,4,1,0,2}, //medium
-                {8,4,6,3,1,5,2,0,7}, //hard
-                {2,8,1,0,4,3,7,6,5}, //tryhard
-                {7,6,5,8,3,4,1,0,2}  //expert
+                {7,6,5,8,3,4,1,0,2}, //easy
+                {7,6,8,5,3,4,1,0,2}, //medium
+                {0,1,2,3,4,5,6,7,8}, //hard
+                {8,4,6,3,1,5,2,0,7}, //tryhard
+                {2,8,1,0,4,3,7,6,5}, //expert
+
         };
 
         Scanner scanner = new Scanner(System.in);
@@ -68,7 +76,6 @@ public class Puzzle8 {
 
         Puzzle8 puzzle = new Puzzle8(initialState);
         puzzle.solve(choice1);
-
-        scanner.close();
+        System.out.println("The puzzle explored: " + puzzle.nodesExplored+ " Nodes");
     }
 }
