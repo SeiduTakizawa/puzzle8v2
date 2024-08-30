@@ -1,0 +1,1 @@
+The 8-puzzle game consists of a 3x3 grid with eight numbered tiles and one empty square. The goal of the game is to slide the tiles into the empty square, rearranging them until they reach a specific configuration. In the program we implemented, we use the Uniform Cost Search (UCS) and A* algorithms.
